@@ -19,6 +19,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'shop',
   data() {
@@ -29,16 +31,21 @@ export default {
         body: '',
         price: 0,
       },
-      products: [
-        /* eslint-disable global-require */
-        { id: 1, img: require('../assets/room0.jpg'), name: '역삼동원룸', price: 50, body: '역삼동에 있는 원룸입니다.', alert: 0 },
-        { id: 2, img: require('../assets/room1.jpg'), name: '천호동원룸', price: 60, body: '천호동에 있는 원룸입니다.', alert: 0 },
-        { id: 3, img: require('../assets/room2.jpg'), name: '구미동원룸', price: 70, body: '구미동에 있는 원룸입니다.', alert: 0 },
-      ],
-      /* eslint-disable global-require */
+      products: [],
     };
   },
   methods: {
+    getProduct() {
+      axios.get('https://ip5ml4gvo2.execute-api.ap-northeast-2.amazonaws.com/v1/test')
+        .then((response) => {
+          // eslint-disable-next-line no-console
+          this.products = response.data.body;
+        })
+        .catch((error) => {
+          // eslint-disable-next-line no-console
+          console.log(error);
+        });
+    },
     increase(index) {
       this.products[index].alert += 1;
     },
@@ -50,6 +57,9 @@ export default {
       this.modal.body = this.products[index].body;
       this.modal.price = this.products[index].price;
     },
+  },
+  created() {
+    this.getProduct();
   },
 };
 </script>
