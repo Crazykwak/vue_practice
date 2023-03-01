@@ -1,66 +1,23 @@
 <template>
-
   <div id="app">
-
-    <div class="black-bg" v-if="isOpenModal" @click="modalSwitch">
-      <div class="white-bg">
-        <h4>{{ modal.title }}</h4>
-        <p>{{ modal.body}}</p>
-        <p>가격 : {{ modal.price }} 만원</p>
-        <button @click="modalSwitch"> 닫기 </button>
-      </div>
+    <div class="nav">
+      <router-link to="/">Home</router-link>
+      <router-link to="/shop">Shop</router-link>
     </div>
 
-    <div class="menu">
-      <a href="">Home</a>
-      <a href="">Products</a>
-      <a href="">About</a>
-    </div>
-    <div v-for="(product, index) in products" :key="product.id">
-      <img :src="product.img" alt="대표사진" class="room-img">
-      <h4 @click="[getNameAndBodyForModal(index), modalSwitch()]">
-        {{ product.id }} : {{ product.name }}</h4>
-      <p> {{ product.price }} 만원</p>
-      <button @click="increase(index)"> 허위 매물 신고 </button> <span> 신고수 : {{ product.alert }}</span>
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+import Home from './components/Home';
+import Shop from './components/Shop';
+
 export default {
   title: 'App',
-  data() {
-    return {
-      isOpenModal: false,
-      modal: {
-        title: '',
-        body: '',
-        price: 0,
-      },
-      products: [
-        /* eslint-disable global-require */
-        { id: 1, img: require('./assets/room0.jpg'), name: '역삼동원룸', price: 50, body: '역삼동에 있는 원룸입니다.', alert: 0 },
-        { id: 2, img: require('./assets/room1.jpg'), name: '천호동원룸', price: 60, body: '천호동에 있는 원룸입니다.', alert: 0 },
-        { id: 3, img: require('./assets/room2.jpg'), name: '구미동원룸', price: 70, body: '구미동에 있는 원룸입니다.', alert: 0 },
-      ],
-      /* eslint-disable global-require */
-    };
-  },
-  methods: {
-    increase(index) {
-      this.products[index].alert += 1;
-    },
-    modalSwitch() {
-      this.isOpenModal = !this.isOpenModal;
-    },
-    getNameAndBodyForModal(index) {
-      this.modal.title = this.products[index].name;
-      this.modal.body = this.products[index].body;
-      this.modal.price = this.products[index].price;
-    },
-  },
   components: {
-
+    Home,
+    Shop,
   },
 };
 
@@ -75,40 +32,16 @@ export default {
   color: #2c3e50;
 }
 
-.menu {
+.nav {
   background: darkslateblue;
+  margin: 10px;
   padding: 15px;
   border-radius: 5px;
 }
 
-.menu a {
+.nav a {
   color: white;
   padding: 10px;
-}
-
-.room-img {
-  width: 100%;
-  margin-top: 40px;
-}
-
-body {
-  margin: 0;
-}
-
-div {
-  box-sizing: border-box;
-}
-
-.black-bg {
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.5);
-  position: fixed; padding: 20px;
-}
-
-.white-bg {
-  width: 100%; background: white;
-  border-radius: 8px;
-  padding: 20px;
 }
 
 </style>
