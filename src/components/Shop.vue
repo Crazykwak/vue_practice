@@ -11,8 +11,8 @@
     <div v-for="(product, index) in products" :key="product.id">
       <img :src="product.img" alt="대표사진" class="room-image">
       <h4 @click="[getNameAndBodyForModal(index), modalSwitch()]">
-        {{ product.id }} : {{ product.name }}</h4>
-      <p> {{ product.price }} 만원</p>
+        {{ index + 1 }} : {{ product.name }}</h4>
+      <p> {{ product.price | money }} 만원</p>
       <button @click="increase(index)"> 허위 매물 신고 </button> <span> 신고수 : {{ product.alert }}</span>
     </div>
   </div>
@@ -34,12 +34,18 @@ export default {
       products: [],
     };
   },
+  filters: {
+    money(number) {
+      return String(number).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    },
+  },
   methods: {
     getProduct() {
       axios.get('https://ip5ml4gvo2.execute-api.ap-northeast-2.amazonaws.com/v1/test')
         .then((response) => {
           // eslint-disable-next-line no-console
-          this.products = response.data.body;
+          console.log(response);
+          this.products = response.data.products.Items;
         })
         .catch((error) => {
           // eslint-disable-next-line no-console
