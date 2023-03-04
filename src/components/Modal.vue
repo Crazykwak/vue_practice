@@ -3,7 +3,7 @@
     <div class="white-bg">
       <h4>{{ title }}</h4>
       <p>{{ body }}</p>
-      <p>가격 : {{ price }} 만원</p>
+      <p>가격 : {{ price | money }} 만원</p>
       <button @click="closeModal"> 닫기 </button>
     </div>
   </div>
@@ -16,6 +16,11 @@ export default {
     title: String,
     body: String,
     price: Number,
+  },
+  filters: {
+    money(number) {
+      return String(number).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    },
   },
   methods: {
     closeModal() {
