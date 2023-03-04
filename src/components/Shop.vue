@@ -1,13 +1,13 @@
 <template>
   <div id="shop">
-    <div class="black-bg" v-if="isOpenModal" @click="modalSwitch">
-      <div class="white-bg">
-        <h4>{{ modal.title }}</h4>
-        <p>{{ modal.body}}</p>
-        <p>가격 : {{ modal.price }} 만원</p>
-        <button @click="modalSwitch"> 닫기 </button>
-      </div>
-    </div>
+    <modal
+      :is-open="isOpenModal"
+      :title="modal.title"
+      :body="modal.body"
+      :price="modal.price"
+      @close="modalSwitch"
+    ></modal>
+
     <div v-for="(product, index) in products" :key="product.id">
       <img :src="product.img" alt="대표사진" class="room-image">
       <h4 @click="[getNameAndBodyForModal(index), modalSwitch()]">
@@ -20,9 +20,13 @@
 
 <script>
 import axios from 'axios';
+import Modal from './Modal';
 
 export default {
   name: 'shop',
+  components: {
+    Modal,
+  },
   data() {
     return {
       isOpenModal: false,
@@ -83,18 +87,6 @@ body {
 
 div {
   box-sizing: border-box;
-}
-
-.black-bg {
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.5);
-  position: fixed; padding: 20px;
-}
-
-.white-bg {
-  width: 100%; background: white;
-  border-radius: 8px;
-  padding: 20px;
 }
 
 </style>
