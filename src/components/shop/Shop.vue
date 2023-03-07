@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import Modal from './Modal';
 
 export default {
@@ -45,7 +44,7 @@ export default {
   },
   methods: {
     getProduct() {
-      axios.get('https://ip5ml4gvo2.execute-api.ap-northeast-2.amazonaws.com/v1/test')
+      this.$axios.get('https://ip5ml4gvo2.execute-api.ap-northeast-2.amazonaws.com/v1/test')
         .then((response) => {
           // eslint-disable-next-line no-console
           console.log(response);
