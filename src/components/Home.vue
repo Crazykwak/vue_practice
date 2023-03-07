@@ -21,6 +21,9 @@ export default {
       this.$axios.get(this.$url)
         .then((response) => {
           this.msg = response.data;
+        })
+        .catch((error) => {
+          this.msg = `연결이 안됐어!! \n ${error}`;
         });
     },
   },
