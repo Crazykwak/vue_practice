@@ -1,6 +1,11 @@
 <template>
   <div id="app">
+    <div class="top">
+      <div class="login"> 로그인 </div>
+      <router-link class="join" to="/join">회원가입</router-link>
+    </div>
     <div class="nav">
+      <h1 id="homepage-title"> 광리의 스케치북 </h1>
       <router-link to="/">Home</router-link>
       <router-link to="/shop">Shop</router-link>
       <router-link to="/board">게시판</router-link>
@@ -29,6 +34,7 @@ export default {
 * {
   margin: 0px;
   padding: 0px;
+  text-decoration: none;
 }
 
 #app {
@@ -49,6 +55,28 @@ export default {
 .nav a {
   color: white;
   padding: 10px;
+}
+
+#homepage-title {
+  color: white;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+}
+
+.join, .login {
+  margin: 8px;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  border-radius: 5px;
 }
 
 </style>
