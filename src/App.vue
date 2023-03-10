@@ -5,7 +5,7 @@
       <router-link class="join" to="/join">회원가입</router-link>
     </div>
     <div class="nav">
-      <h1 id="homepage-title"> 광리의 스케치북 </h1>
+      <h1 id="homepage-title"> 스케치북 </h1>
       <router-link to="/">Home</router-link>
       <router-link to="/shop">Shop</router-link>
       <router-link to="/board">게시판</router-link>
@@ -35,6 +35,11 @@ export default {
   margin: 0px;
   padding: 0px;
   text-decoration: none;
+  font-size: 1rem;
+}
+
+h1 {
+  font-size: 3rem;
 }
 
 #app {
@@ -72,11 +77,13 @@ export default {
 }
 
 .join, .login {
-  margin: 8px;
-  padding: 10px;
+  margin: 1px;
+  padding: 7px;
   background-color: black;
   color: white;
   border-radius: 5px;
+  font-size: 1rem
+;
 }
 
 </style>
