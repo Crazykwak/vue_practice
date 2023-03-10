@@ -8,7 +8,7 @@ import axios from 'axios';
 
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
-Vue.prototype.$url = 'http://localhost:8080';
+Vue.prototype.$url = 'http://localhost:8080/api';
 
 /* eslint-disable no-new */
 new Vue({
