@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="top">
-      <div class="login"> 로그인 </div>
+      <router-link class="login" to="/login"> 로그인 </router-link>
       <router-link class="join" to="/join">회원가입</router-link>
     </div>
     <div class="nav">

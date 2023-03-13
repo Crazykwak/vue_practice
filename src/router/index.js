@@ -4,6 +4,7 @@ import Home from '@/components/Home';
 import Shop from '@/components/shop/Shop';
 import Board from '@/components/board/Board';
 import Join from '@/components/member/Join';
+import Login from '@/components/member/Login';
 
 Vue.use(Router);
 
@@ -29,6 +30,11 @@ export default new Router({
       path: '/join',
       name: 'join',
       component: Join,
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login,
     },
   ],
 });
