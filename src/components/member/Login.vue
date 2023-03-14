@@ -26,7 +26,11 @@ export default {
     login() {
       this.$axios.post(`${this.$url}/login`, this.form)
         .then((response) => {
-          console.log(response);
+          const accessToken = response.headers.getAuthorization();
+          localStorage.setItem('AccessToken', accessToken);
+          this.$accessToken = accessToken;
+          this.$router.push('/Home');
+          location.reload();
         }).catch((err) => {
           console.log(err);
         });

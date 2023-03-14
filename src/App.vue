@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <div class="top">
-      <router-link class="login" to="/login"> 로그인 </router-link>
-      <router-link class="join" to="/join">회원가입</router-link>
+      <router-link v-if="!login" class="login" to="/login"> 로그인 </router-link>
+      <div v-if="login" @click="logout" class="logout"> 로그아웃 </div>
+      <router-link v-if="!login" class="join" to="/join">회원가입</router-link>
     </div>
     <div class="nav">
       <h1 id="homepage-title"> 스케치북 </h1>
@@ -21,6 +22,23 @@ import Board from './components/board/Board';
 
 export default {
   title: 'App',
+  data() {
+    return {
+      login: false,
+    };
+  },
+  methods: {
+    isLogin() {
+      this.login = this.$accessToken.startsWith('Bearer');
+    },
+    logout() {
+      localStorage.removeItem('AccessToken');
+      location.reload();
+    },
+  },
+  created() {
+    this.isLogin();
+  },
   components: {
     Home,
     Shop,
@@ -76,7 +94,7 @@ h1 {
 
 }
 
-.join, .login {
+.join, .login, .logout {
   margin: 1px;
   padding: 7px;
   background-color: black;
