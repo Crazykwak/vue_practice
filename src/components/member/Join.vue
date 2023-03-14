@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     joinMember() {
-      this.$axios.post(`${this.$url}/join`, this.form)
+      this.$axios.post('/join', this.form)
         .then((response) => {
           if (response.status === 201) {
             this.$router.push('/Home');

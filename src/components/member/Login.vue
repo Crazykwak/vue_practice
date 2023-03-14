@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     login() {
-      this.$axios.post(`${this.$url}/login`, this.form)
+      this.$axios.post('/login', this.form)
         .then((response) => {
           const accessToken = response.headers.getAuthorization();
           localStorage.setItem('AccessToken', accessToken);

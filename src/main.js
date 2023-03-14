@@ -4,13 +4,10 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 // eslint-disable-next-line import/first
-import axios from 'axios';
-
+import axios from './plugins/axios';
+//
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
-Vue.prototype.$url = 'http://localhost:8080/api';
-Vue.prototype.$accessToken = localStorage.getItem('AccessToken');
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
