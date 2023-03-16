@@ -28,8 +28,7 @@ export default {
         .then((response) => {
           const accessToken = response.headers.getAuthorization();
           localStorage.setItem('AccessToken', accessToken);
-          this.$accessToken = accessToken;
-          this.$router.push('/Home');
+          this.$router.push('/');
           location.reload();
         }).catch((err) => {
           console.log(err);

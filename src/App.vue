@@ -24,19 +24,24 @@ export default {
   title: 'App',
   data() {
     return {
-      login: false,
+      login: true,
     };
   },
   methods: {
     isLogin() {
-      this.login = this.$accessToken.startsWith('Bearer');
+      const accessToken = localStorage.getItem('AccessToken');
+      if (accessToken === null || accessToken.startsWith('Bearer')) {
+        this.login = false;
+        return;
+      }
+      this.login = true;
     },
     logout() {
       localStorage.removeItem('AccessToken');
-      location.reload();
+      this.isLogin();
     },
   },
-  created() {
+  create() {
     this.isLogin();
   },
   components: {
