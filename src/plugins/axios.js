@@ -5,7 +5,6 @@ axios.interceptors.request.use(
   // eslint-disable-next-line no-shadow
   (config) => {
     const token = `Bearer ${localStorage.getItem('AccessToken')}`;
-    console.log(token);
     if (token) {
       // eslint-disable-next-line no-param-reassign
       config.headers.Authorization = token;
@@ -17,8 +16,22 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   response => response,
-  (error) => {
-    console.log(error);
+  async (error) => {
+    const responseData = error.response.data;
+    if (responseData.body === '토큰 시간 만료' && responseData.statusCodeValue === 401 && responseData.statusCode === 'UNAUTHORIZED') {
+      const originRequest = error.config;
+      const token = `Bearer ${localStorage.getItem('RefreshToken')}`;
+
+      const res = await axios.post(
+        '/refresh_authorization',
+        { refreshToken: token },
+      );
+      const accessToken = res.headers.getAuthorization().replace('Bearer ', '');
+      localStorage.setItem('AccessToken', accessToken);
+      originRequest.headers.Authorization = `Bearer ${accessToken}`;
+      return axios(originRequest);
+    }
+    return Promise.reject(error);
   },
 );
 
