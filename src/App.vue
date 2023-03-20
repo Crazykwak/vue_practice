@@ -30,7 +30,7 @@ export default {
   methods: {
     isLogin() {
       const accessToken = localStorage.getItem('AccessToken');
-      if (accessToken == null || !accessToken.startsWith('Bearer') || accessToken === '') {
+      if (accessToken == null || accessToken === '') {
         return false;
       }
       return true;

@@ -15,4 +15,11 @@ axios.interceptors.request.use(
   error => Promise.reject(error),
 );
 
+axios.interceptors.response.use(
+  response => response,
+  (error) => {
+    console.log(error);
+  },
+);
+
 export default axios;
