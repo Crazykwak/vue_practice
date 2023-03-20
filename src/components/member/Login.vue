@@ -27,7 +27,7 @@ export default {
       this.$axios.post('/login', this.form)
         .then((response) => {
           const accessToken = response.headers.getAuthorization();
-          localStorage.setItem('AccessToken', accessToken);
+          localStorage.setItem('AccessToken', accessToken.replace('Bearer ', ''));
           this.$router.push('/');
           location.reload();
         }).catch((err) => {

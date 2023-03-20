@@ -4,7 +4,7 @@ axios.defaults.baseURL = 'http://localhost:8080/api';
 axios.interceptors.request.use(
   // eslint-disable-next-line no-shadow
   (config) => {
-    const token = localStorage.getItem('AccessToken');
+    const token = `Bearer ${localStorage.getItem('AccessToken')}`;
     console.log(token);
     if (token) {
       // eslint-disable-next-line no-param-reassign
