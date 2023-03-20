@@ -24,25 +24,21 @@ export default {
   title: 'App',
   data() {
     return {
-      login: true,
+      login: this.isLogin(),
     };
   },
   methods: {
     isLogin() {
       const accessToken = localStorage.getItem('AccessToken');
-      if (accessToken === null || accessToken.startsWith('Bearer')) {
-        this.login = false;
-        return;
+      if (accessToken == null || !accessToken.startsWith('Bearer') || accessToken === '') {
+        return false;
       }
-      this.login = true;
+      return true;
     },
     logout() {
       localStorage.removeItem('AccessToken');
-      this.isLogin();
+      location.reload();
     },
-  },
-  create() {
-    this.isLogin();
   },
   components: {
     Home,
