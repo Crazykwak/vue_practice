@@ -33,7 +33,8 @@ export default {
           this.$router.push('/');
           location.reload();
         }).catch((err) => {
-          console.log(err);
+        // eslint-disable-next-line
+          console.error(err);
         });
     },
   },

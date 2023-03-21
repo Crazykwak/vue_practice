@@ -35,7 +35,8 @@ export default {
             this.$router.push('/Error');
           }
         }).catch((err) => {
-          console.log(err);
+        // eslint-disable-next-line
+          console.error(err);
         });
     },
   },
