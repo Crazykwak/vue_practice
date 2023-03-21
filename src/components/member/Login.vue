@@ -1,6 +1,6 @@
 <template>
   <div id="Login">
-    <form v-on:submit.prevent="login" class="login-box">
+    <form v-on:submit.prevent="[encrypt, login]" class="login-box">
       <h1> 로그인 </h1>
       <p> 아이디 </p>
       <input id="userId" v-model="form.userId" type="text">
@@ -17,6 +17,7 @@ export default {
   data() {
     return {
       form: {
+        encryptIdPassword: '',
         userId: '',
         password: '',
       },
@@ -37,6 +38,9 @@ export default {
           console.error(err);
         });
     },
+    encrypt() {
+
+    }
   },
 };
 </script>
