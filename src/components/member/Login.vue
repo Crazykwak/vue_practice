@@ -1,7 +1,8 @@
 <template>
   <div id="Login">
-    <form v-on:submit.prevent="[encrypt, login]" class="login-box">
+    <form v-on:submit.prevent="encryptLoginData(), login()" class="login-box">
       <h1> 로그인 </h1>
+      <input id="encryptIdPassword" v-model="form.encryptIdPassword" type="hidden">
       <p> 아이디 </p>
       <input id="userId" v-model="form.userId" type="text">
       <p> 비밀번호 </p>
@@ -12,6 +13,8 @@
 </template>
 
 <script>
+const crypto = require('crypto');
+
 export default {
   name: 'Login',
   data() {
@@ -38,9 +41,16 @@ export default {
           console.error(err);
         });
     },
-    encrypt() {
-
-    }
+    encryptLoginData() {
+      const id = this.form.userId;
+      const pw = this.form.password;
+      const iv = Buffer.from('aaaaaaaaaaaaaaaa');
+      const cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from('asdfafdsafsdashidofhasidofhaosid'), iv);
+      const encrypted = cipher.update(`${id}|${pw}`);
+      this.form.encryptIdPassword = Buffer.concat([encrypted, cipher.final()]).toString('base64');
+      this.form.userId = '';
+      this.form.password = '';
+    },
   },
 };
 </script>

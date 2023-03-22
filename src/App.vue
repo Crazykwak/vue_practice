@@ -37,6 +37,7 @@ export default {
     },
     logout() {
       localStorage.removeItem('AccessToken');
+      localStorage.removeItem('RefreshToken');
       location.reload();
     },
   },
@@ -101,8 +102,8 @@ h1 {
   background-color: black;
   color: white;
   border-radius: 5px;
-  font-size: 1rem
-;
+  font-size: 1rem;
+  cursor: pointer;
 }
 
 </style>
