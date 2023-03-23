@@ -44,10 +44,10 @@ export default {
     encryptLoginData() {
       const id = this.form.userId;
       const pw = this.form.password;
-      const iv = Buffer.from('aaaaaaaaaaaaaaaa');
+      const iv = crypto.randomBytes(16);
       const cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from('asdfafdsafsdashidofhasidofhaosid'), iv);
       const encrypted = cipher.update(`${id}|${pw}`);
-      this.form.encryptIdPassword = Buffer.concat([encrypted, cipher.final()]).toString('base64');
+      this.form.encryptIdPassword = `${iv.toString('base64')}:${Buffer.concat([encrypted, cipher.final()]).toString('base64')}`;
       this.form.userId = '';
       this.form.password = '';
     },
