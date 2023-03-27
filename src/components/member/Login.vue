@@ -44,10 +44,20 @@ export default {
     encryptLoginData() {
       const id = this.form.userId;
       const pw = this.form.password;
-      const iv = crypto.randomBytes(16);
-      const cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from('asdfafdsafsdashidofhasidofhaosid'), iv);
-      const encrypted = cipher.update(`${id}|${pw}`);
-      this.form.encryptIdPassword = `${iv.toString('base64')}:${Buffer.concat([encrypted, cipher.final()]).toString('base64')}`;
+      const publicKey = process.env.VUE_APP_PUBLIC_KEY.replaceAll('|', '\n');
+      console.log(publicKey.toString());
+
+      // const cipher = crypto.createCipheriv
+      // ('aes-256-cbc', Buffer.from(process.env.VUE_APP_PUBLIC_KEY), iv);
+      const buffer = Buffer.from(`${id}|${pw}`);
+      console.log(buffer);
+      const encrypt = crypto.publicEncrypt({
+        key: publicKey,
+        padding: crypto.constants.RSA_PKCS1_PADDING,
+      }, buffer);
+      console.log(encrypt.toString('base64'));
+      // const encrypted = cipher.update(`${id}|${pw}`);
+      this.form.encryptIdPassword = encrypt.toString('base64');
       this.form.userId = '';
       this.form.password = '';
     },
