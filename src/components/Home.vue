@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     getHomeMsg() {
-      this.$axios.get(this.$url)
+      this.$axios.get('')
         .then((response) => {
           this.msg = response.data;
         })
