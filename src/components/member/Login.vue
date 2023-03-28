@@ -46,7 +46,6 @@ export default {
       const pw = this.form.password;
       const publicKey = process.env.VUE_APP_PUBLIC_KEY.replaceAll('|', '\n');
       const buffer = Buffer.from(`${id}|${pw}`);
-      console.log(buffer);
       const encrypt = crypto.publicEncrypt({
         key: publicKey,
         padding: crypto.constants.RSA_PKCS1_PADDING,
