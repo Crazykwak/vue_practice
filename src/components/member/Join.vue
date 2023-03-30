@@ -1,6 +1,6 @@
 <template>
   <div id="join">
-    <form v-on:submit.prevent="joinMember" class="join-box">
+    <form v-on:submit.prevent="encryptLoginData(), joinMember()" class="join-box">
       <h1> 회원 가입 </h1>
       <p> 아이디 </p>
       <input id="userId" v-model="form.userId" type="text">
@@ -14,6 +14,8 @@
 </template>
 
 <script>
+import crypto from 'crypto';
+
 export default {
   name: 'Join',
   data() {
@@ -22,6 +24,7 @@ export default {
         userId: '',
         email: '',
         password: '',
+        encryptIdPassword: '',
       },
     };
   },
@@ -38,6 +41,20 @@ export default {
         // eslint-disable-next-line
           console.error(err);
         });
+    },
+    encryptLoginData() {
+      const id = this.form.userId;
+      const pw = this.form.password;
+      const email = this.form.email;
+      const publicKey = process.env.VUE_APP_PUBLIC_KEY.replaceAll('|', '\n');
+      const buffer = Buffer.from(`${id}|${pw}|${email}`);
+      const encrypt = crypto.publicEncrypt({
+        key: publicKey,
+        padding: crypto.constants.RSA_PKCS1_PADDING,
+      }, buffer);
+      this.form.encryptIdPassword = encrypt.toString('base64');
+      this.form.userId = '';
+      this.form.password = '';
     },
   },
 };
