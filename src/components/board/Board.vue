@@ -1,5 +1,6 @@
 <template>
   <div class="board">
+      <router-link to="/textEditor" class="write button" >글쓰기</router-link>
     <table class="board-table">
       <thead>
         <tr>
@@ -48,6 +49,11 @@ export default {
 </script>
 
 <style scoped>
+
+.write {
+    margin: 10px;
+    padding: 0px 6px;
+}
 
 .board {
   list-style: none;

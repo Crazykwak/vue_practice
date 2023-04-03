@@ -106,4 +106,8 @@ h1 {
   cursor: pointer;
 }
 
+.button {
+    cursor: pointer;
+}
+
 </style>
