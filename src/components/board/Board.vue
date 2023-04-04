@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import TextEditor from './TextEditor';
+
 export default {
   name: 'Board',
   data() {
@@ -44,6 +46,9 @@ export default {
         },
       ],
     };
+  },
+  components: {
+    TextEditor,
   },
 };
 </script>

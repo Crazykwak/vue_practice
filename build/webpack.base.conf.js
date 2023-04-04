@@ -15,7 +15,7 @@ const createLintingRule = () => ({
   include: [resolve('src'), resolve('test')],
   options: {
     formatter: require('eslint-friendly-formatter'),
-    emitWarning: !config.dev.showEslintErrorsInOverlay
+    emitWarning: !config.dev.showEslintErrorsInOverlay,
   }
 })
 
@@ -47,14 +47,17 @@ module.exports = {
         options: vueLoaderConfig
       },
       {
+        test: /\.scss$/,
+        loader: ['style', 'css', 'sass'],
+      },
+      {
         test: /\.js$/,
         loader: 'babel-loader',
         include: [resolve('src'),
           resolve('test'),
           resolve('node_modules/webpack-dev-server/client'),
-          resolve('node_modules/tiptap'),
-          resolve('node_modules/tiptap-extensions'),
-          resolve('/node_modules/prosemirror-tables/'),
+          resolve('node_modules/@tiptap'),
+          resolve('./node_modules/@tiptap/starter-kit'),
         ]
       },
       {

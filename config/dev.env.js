@@ -1,6 +1,7 @@
 'use strict'
 const merge = require('webpack-merge')
 const prodEnv = require('./prod.env')
+const path = require('path')
 const dotenv = require('dotenv');
 
 
