@@ -18,8 +18,6 @@ axios.interceptors.response.use(
   response => response,
   async (error) => {
     const responseData = error.response.data.body.message;
-    console.log('!!!!!!!!!!!!!!');
-    console.log(responseData);
     if (responseData === '토큰 시간 만료') {
       const originRequest = error.config;
       const token = `Bearer ${localStorage.getItem('RefreshToken')}`;
@@ -28,12 +26,8 @@ axios.interceptors.response.use(
       const res = await axios.post(
         '/refresh_authorization',
         { refreshToken: token },
-      ).catch((refreshError) => {
-        console.log(refreshError);
-        console.log('@@@@@@@@@@');
-        if (refreshError.response.data === '토큰 시간 만료') {
-          flag = true;
-        }
+      ).catch(() => {
+        flag = true;
       });
 
       if (flag) {
