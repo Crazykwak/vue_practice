@@ -44,7 +44,8 @@ export default {
     encryptLoginData() {
       const id = this.form.userId;
       const pw = this.form.password;
-      const publicKey = process.env.VUE_APP_PUBLIC_KEY.replaceAll('|', '\n');
+      console.log(process.env.VUE_APP_PUBLIC_KEY);
+      const publicKey = process.env.VUE_APP_PUBLIC_KEY.toString().replaceAll('|', '\n');
       const buffer = Buffer.from(`${id}|${pw}`);
       const encrypt = crypto.publicEncrypt({
         key: publicKey,

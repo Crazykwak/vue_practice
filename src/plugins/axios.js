@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = process.env.VUE_APP_API_URI;
+axios.defaults.baseURL = `${process.env.VUE_APP_API_URI}/api`;
 axios.interceptors.request.use(
   // eslint-disable-next-line no-shadow
   (config) => {
@@ -17,8 +17,10 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   response => response,
   async (error) => {
-    const responseData = error.response.data;
-    if (responseData.body === '토큰 시간 만료') {
+    const responseData = error.response.data.body.message;
+    console.log('!!!!!!!!!!!!!!');
+    console.log(responseData);
+    if (responseData === '토큰 시간 만료') {
       const originRequest = error.config;
       const token = `Bearer ${localStorage.getItem('RefreshToken')}`;
       let flag = false;
@@ -27,10 +29,13 @@ axios.interceptors.response.use(
         '/refresh_authorization',
         { refreshToken: token },
       ).catch((refreshError) => {
+        console.log(refreshError);
+        console.log('@@@@@@@@@@');
         if (refreshError.response.data === '토큰 시간 만료') {
           flag = true;
         }
       });
+
       if (flag) {
         localStorage.removeItem('AccessToken');
         localStorage.removeItem('RefreshToken');
