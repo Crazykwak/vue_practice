@@ -10,14 +10,14 @@
         </tr>
       </thead>
       <tbody>
-      <tr v-for="tableBoard in tableBoards" :key="tableBoard.title">
+      <tr v-for="tableBoard in tableBoards" :key="tableBoard.id">
         <th class="title">
           <a href=""> {{ tableBoard.title }} </a>
         </th>
         <th class="writer">
           <a href=""> {{ tableBoard.write}} </a>
         </th>
-        <th> {{ tableBoard.date }} </th>
+        <th> {{ tableBoard.createdAt }} </th>
       </tr>
       </tbody>
     </table>
@@ -32,23 +32,27 @@ export default {
   data() {
     return {
       tableBoards:
-      [
-        {
-          title: '테스트 제목1',
-          write: '글쓴이1',
-          date: '2023-03-06',
-          view: '1' },
-        {
-          title: '테스트 제목2',
-          write: '글쓴이2',
-          date: '2023-03-06',
-          view: '2',
-        },
-      ],
+      [],
     };
   },
   components: {
     TextEditor,
+  },
+  mounted() {
+    this.$axios.get('/free-board?page=1&size=10')
+      .then((res) => {
+        console.log(res.data.content);
+        res.data.content.forEach((e) => {
+          this.tableBoards.push({
+            id: e.id,
+            title: e.title,
+            write: e.memberId,
+            createdAt: e.createdAt,
+          });
+        });
+      }).catch((error) => {
+        alert(error);
+      });
   },
 };
 </script>
