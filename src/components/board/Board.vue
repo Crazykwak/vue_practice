@@ -46,7 +46,7 @@ export default {
           this.tableBoards.push({
             id: e.id,
             title: e.title,
-            write: e.memberId,
+            write: e.userId,
             createdAt: e.createdAt,
           });
         });
