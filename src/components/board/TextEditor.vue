@@ -1,5 +1,9 @@
 <template>
     <div class="board-editor">
+      <OKBoard
+        :is-open="isOpen"
+        :msg="message"
+      ></OKBoard>
       <div class="title">
           <label for="title"> 제목 </label>
           <input type="text" id="title" v-model="form.title">
@@ -89,7 +93,7 @@
                 :disabled="!editor.can().chain().focus().redo().run()">
           redo
         </button>
-        <editor-content :editor="editor" />
+        <editor-content v-if="!isOpen" class="ProseMirror" :editor="editor" />
       </div>
         <input type="submit" value="제출" @click="post">
     </div>
@@ -101,12 +105,14 @@
 import { Editor, EditorContent } from '@tiptap/vue-2';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import StarterKit from '@tiptap/starter-kit';
+import OKBoard from '@/components/board/OKBoard';
 // eslint-disable-next-line import/no-extraneous-dependencies
 
 export default {
   name: 'TextEditor',
 
   components: {
+    OKBoard,
     EditorContent,
   },
   data() {
@@ -116,6 +122,8 @@ export default {
         title: null,
         body: null,
       },
+      isOpen: false,
+      message: '',
     };
   },
   methods: {
@@ -124,10 +132,20 @@ export default {
         title: this.form.title,
         body: this.editor.getHTML(),
       }).then((res) => {
-        console.log(res);
+        // eslint-disable-next-line
+        if (res.status === 201) {
+          this.message = '글 잘써짐';
+        } else {
+          this.message = '글 안써짐';
+        }
+        this.okBoardSwitch();
       }).catch((err) => {
+        // eslint-disable-next-line
         console.log(err);
       });
+    },
+    okBoardSwitch() {
+      this.isOpen = !this.isOpen;
     },
   },
   watch: {
@@ -148,24 +166,22 @@ export default {
   },
 };
 </script>
-
 <style lang="scss">
 /* Basic editor styles */
+
 .editor {
-  position: relative;
-  margin: 0 auto 5rem auto;
-  max-width: 70rem;
-  border: 1px solid black;
+    margin: 20px;
 }
 
 .ProseMirror {
   > * + * {
-    margin-top: 0.75em;
+      margin: 0.7rem;
+      padding: 0.1rem;
   }
 
   ul,
   ol {
-    padding: 0 1rem;
+      padding: 0 1rem;
   }
 
   h1,
@@ -174,43 +190,43 @@ export default {
   h4,
   h5,
   h6 {
-    line-height: 1.1;
+      line-height: 1.1;
   }
 
   code {
-    background-color: rgba(#616161, 0.1);
-    color: #616161;
+      background-color: rgba(97, 97, 97, 0.1);
+      color: #616161;
   }
 
   pre {
-    background: #0D0D0D;
-    color: #FFF;
-    font-family: 'JetBrainsMono', monospace;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
+        background: #0D0D0D;
+        color: #FFF;
+        font-family: 'JetBrainsMono', monospace;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
 
     code {
-      color: inherit;
-      padding: 0;
-      background: none;
-      font-size: 0.8rem;
+        color: inherit;
+        padding: 0;
+        background: none;
+        font-size: 0.8rem;
     }
   }
 
   img {
-    max-width: 100%;
-    height: auto;
+      max-width: 100%;
+      height: auto;
   }
 
   blockquote {
-    padding-left: 1rem;
-    border-left: 2px solid rgba(#0D0D0D, 0.1);
+      padding-left: 1rem;
+      border-left: 2px solid rgba(13, 13, 13, 0.1);
   }
 
   hr {
-    border: none;
-    border-top: 2px solid rgba(#0D0D0D, 0.1);
-    margin: 2rem 0;
+      border: none;
+      border-top: 2px solid rgba(13, 13, 13, 0.1);
+      margin: 2rem 0;
   }
 }
 </style>

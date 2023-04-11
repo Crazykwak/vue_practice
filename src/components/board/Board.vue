@@ -41,7 +41,6 @@ export default {
   mounted() {
     this.$axios.get('/free-board?page=1&size=10')
       .then((res) => {
-        console.log(res.data.content);
         res.data.content.forEach((e) => {
           this.tableBoards.push({
             id: e.id,
@@ -51,7 +50,8 @@ export default {
           });
         });
       }).catch((error) => {
-        alert(error);
+      // eslint-disable-next-line
+        console.log(error);
       });
   },
 };
