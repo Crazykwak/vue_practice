@@ -6,6 +6,7 @@ import Board from '@/components/board/Board';
 import Join from '@/components/member/Join';
 import Login from '@/components/member/Login';
 import TextEditor from '@/components/board/TextEditor';
+import Detail from '@/components/board/Detail';
 
 Vue.use(Router);
 
@@ -41,6 +42,11 @@ export default new Router({
       path: '/textEditor',
       name: 'textEditor',
       component: TextEditor,
+    },
+    {
+      path: '/board/:id',
+      name: 'detail',
+      component: Detail,
     },
   ],
 });

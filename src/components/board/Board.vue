@@ -1,6 +1,11 @@
 <template>
   <div class="board">
-      <router-link to="/textEditor" class="write button" >글쓰기</router-link>
+      <div>
+          <router-view></router-view>
+      </div>
+      <div class="menu-box">
+          <router-link to="/textEditor" class="write btn" >글쓰기</router-link>
+      </div>
     <table class="board-table">
       <thead>
         <tr>
@@ -11,12 +16,14 @@
       </thead>
       <tbody>
       <tr v-for="tableBoard in tableBoards" :key="tableBoard.id">
-        <th class="title">
-          <a href=""> {{ tableBoard.title }} </a>
-        </th>
-        <th class="writer">
-          <a href=""> {{ tableBoard.write}} </a>
-        </th>
+        <td class="title">
+          <router-link :to="{name: 'detail', params: {id: tableBoard.id}}">
+              {{ tableBoard.title }}
+          </router-link>
+        </td>
+        <td class="writer">
+          <router-link to=""> {{ tableBoard.write}} </router-link>
+        </td>
         <th> {{ tableBoard.createdAt }} </th>
       </tr>
       </tbody>
@@ -69,6 +76,7 @@ export default {
   text-decoration: none;
   box-sizing: border-box;
   padding: 20px;
+  text-align: left;
 }
 
 table {
@@ -112,6 +120,12 @@ table {
 
 .th-date {
   width: 10%;
+}
+
+.btn {
+    padding: 10px;
+    margin: 10px;
+    background-color: #7969b9;
 }
 
 .board-table th, .board-table td {
