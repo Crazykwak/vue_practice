@@ -175,8 +175,8 @@ export default {
 
 .ProseMirror {
   > * + * {
-      margin: 0.7rem;
-      padding: 0.1rem;
+      margin: 1rem;
+      padding: 0.3rem;
   }
 
   ul,

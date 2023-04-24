@@ -1,8 +1,5 @@
 <template>
   <div class="board">
-      <div>
-          <router-view></router-view>
-      </div>
       <div class="menu-box">
           <router-link to="/textEditor" class="write btn" >글쓰기</router-link>
       </div>
@@ -38,8 +35,8 @@ export default {
   name: 'Board',
   data() {
     return {
-      tableBoards:
-      [],
+      tableBoards: [],
+      isOpenBoard: false,
     };
   },
   components: {
